@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f2ed">
+  <title>Little Things, Forever — our favorite words</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f8f2ed;
+      --paper-deep: #efe3da;
+      --ink: #342926;
+      --muted: #82716b;
+      --rose: #a65360;
+      --rose-dark: #793b49;
+      --rose-pale: #f3e3e3;
+      --olive: #65705a;
+      --line: #e8dcd4;
+      --white: #fffdfa;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 85% 4%, rgba(232, 195, 188, .36), transparent 28rem),
+        var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(121, 59, 73, .13);
+    }
+
+    .brand {
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      color: var(--rose-dark);
+      font-family: var(--serif);
+      font-size: 16px;
+      letter-spacing: .01em;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(121, 59, 73, .3);
+      border-radius: 50%;
+      font-size: 14px;
+    }
+
+    .top-note {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 390px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 0 54px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--rose);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 690px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 91px);
+      font-weight: 400;
+      letter-spacing: -.065em;
+      line-height: .96;
+    }
+
+    h1 em {
+      color: var(--rose);
+      font-weight: 400;
+    }
+
+    .hero-copy {
+      max-width: 470px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .keepsake {
+      position: relative;
+      width: 222px;
+      height: 243px;
+      justify-self: center;
+      transform: rotate(4deg);
+    }
+
+    .keepsake-paper {
+      position: absolute;
+      inset: 9px 5px 5px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px 20px 17px;
+      border: 1px solid #e6d5ca;
+      background: #fffaf5;
+      box-shadow: 0 16px 42px rgba(80, 52, 45, .11);
+    }
+
+    .tape {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 80px;
+      width: 64px;
+      height: 17px;
+      background: rgba(215, 173, 151, .58);
+      transform: rotate(-8deg);
+    }
+
+    .scrap-date {
+      color: var(--rose);
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .scrap-quote {
+      margin: 14px 0 10px;
+      color: var(--rose-dark);
+      font-family: var(--serif);
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .scrap-sign {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 12px;
+      font-style: italic;
+    }
+
+    .scrap-heart {
+      position: absolute;
+      right: 12px;
+      bottom: 42px;
+      color: #c7797e;
+      font-size: 23px;
+    }
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .collection {
+      padding: 42px 0 90px;
+    }
+
+    .collection-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 25px;
+    }
+
+    .collection-heading h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: -.035em;
+    }
+
+    .collection-heading p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .count {
+      color: var(--rose-dark);
+      font-family: var(--serif);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(200px, 1fr) auto;
+      gap: 15px;
+      align-items: center;
+      margin: 25px 0 38px;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      color: #9c8981;
+      font-size: 17px;
+      transform: translateY(-53%);
+      pointer-events: none;
+    }
+
+    .search {
+      width: 100%;
+      height: 47px;
+      padding: 0 16px 0 43px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      outline: none;
+      background: rgba(255, 253, 250, .75);
+      color: var(--ink);
+      font-size: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .search::placeholder { color: #a3938b; }
+    .search:focus {
+      border-color: #c48c8e;
+      box-shadow: 0 0 0 3px rgba(166, 83, 96, .09);
+    }
+
+    .filters {
+      display: flex;
+      gap: 5px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(255, 253, 250, .56);
+    }
+
+    .filter {
+      min-width: 62px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 3px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 12px;
+      transition: background .2s, color .2s;
+    }
+
+    .filter:hover { color: var(--rose-dark); }
+    .filter[aria-pressed="true"] {
+      background: var(--rose-dark);
+      color: white;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 830px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      position: absolute;
+      top: 6px;
+      bottom: 15px;
+      left: 87px;
+      width: 1px;
+      background: #e4d3cb;
+      content: "";
+    }
+
+    .day-group { margin: 0 0 36px; }
+
+    .day-heading {
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 31px;
+      align-items: center;
+      margin: 0 0 15px;
+    }
+
+    .day-heading::after {
+      position: absolute;
+      left: 83px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--paper);
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 0 0 0 1px #d5a5a2;
+      content: "";
+    }
+
+    .day-date {
+      color: var(--rose);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      line-height: 1.5;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .day-label {
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 17px;
+      font-style: italic;
+    }
+
+    .moments {
+      display: grid;
+      gap: 11px;
+      margin-left: 118px;
+    }
+
+    .moment {
+      position: relative;
+      padding: 17px 19px 16px;
+      border: 1px solid rgba(226, 211, 202, .85);
+      border-radius: 4px;
+      background: rgba(255, 253, 250, .78);
+      box-shadow: 0 3px 14px rgba(73, 47, 39, .025);
+      animation: arrive .35s ease both;
+    }
+
+    .moment::before {
+      position: absolute;
+      top: 21px;
+      left: -5px;
+      width: 8px;
+      height: 8px;
+      border-bottom: 1px solid rgba(226, 211, 202, .85);
+      border-left: 1px solid rgba(226, 211, 202, .85);
+      background: #fffdfa;
+      content: "";
+      transform: rotate(45deg);
+    }
+
+    .moment-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .moment-number {
+      margin-left: auto;
+      color: #b7a59d;
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .speaker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--rose-dark);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .speaker.you { color: var(--olive); }
+    .speaker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #bd777d;
+    }
+    .speaker.you .speaker-dot { background: #849177; }
+
+    .message {
+      margin: 0;
+      color: #463935;
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.72;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .message + .message { margin-top: 15px; }
+    .message-block + .message-block {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #eee4dd;
+    }
+
+    .message-block .speaker { margin-bottom: 8px; }
+
+    .empty-state {
+      display: none;
+      padding: 50px 20px;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 20px;
+      text-align: center;
+    }
+    .empty-state.visible { display: block; }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 23px 0 31px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .footer span:last-child {
+      color: var(--rose);
+      font-family: var(--serif);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .page-shell { width: min(100% - 34px, 560px); }
+      .topbar { height: 63px; }
+      .top-note { font-size: 9px; letter-spacing: .12em; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr 112px;
+        gap: 10px;
+        padding: 52px 0 43px;
+      }
+      .eyebrow { margin-bottom: 14px; font-size: 9px; }
+      h1 { font-size: clamp(48px, 12vw, 69px); }
+      .hero-copy { margin-top: 17px; font-size: 13px; line-height: 1.7; }
+      .keepsake { width: 112px; height: 152px; transform: rotate(5deg) scale(.86); }
+      .keepsake-paper { inset: 8px 0 0; padding: 16px 12px 12px; }
+      .tape { left: 32px; width: 52px; }
+      .scrap-date { font-size: 7px; }
+      .scrap-quote { margin: 9px 0; font-size: 18px; }
+      .scrap-sign { font-size: 9px; }
+      .scrap-heart { right: 9px; bottom: 30px; font-size: 17px; }
+      .collection { padding-top: 34px; }
+      .collection-heading { align-items: start; }
+      .collection-heading h2 { font-size: 27px; }
+      .collection-heading p { max-width: 250px; font-size: 12px; line-height: 1.6; }
+      .count { padding-top: 5px; font-size: 12px; }
+      .controls { grid-template-columns: 1fr; gap: 10px; margin: 22px 0 31px; }
+      .filters { justify-content: stretch; }
+      .filter { flex: 1; }
+      .timeline::before { left: 13px; }
+      .day-group { margin-bottom: 29px; }
+      .day-heading {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        min-height: 28px;
+        padding-left: 35px;
+      }
+      .day-heading::after { left: 9px; }
+      .day-date { text-align: left; }
+      .day-label { font-size: 15px; }
+      .moments { gap: 9px; margin-left: 35px; }
+      .moment { padding: 15px 14px 14px; }
+      .message { font-size: 14px; line-height: 1.68; }
+      .footer { font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Little Things, Forever home">
+        <span class="brand-mark" aria-hidden="true">♡</span>
+        <span>Little Things, Forever</span>
+      </a>
+      <span class="top-note">a collection of us</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Saved with all my heart</p>
+          <h1 id="page-title">Little things,<br><em>forever.</em></h1>
+          <p class="hero-copy">Some words deserve to be kept close. A little collection of the messages, promises, and daydreams that feel like home.</p>
+        </div>
+        <aside class="keepsake" aria-label="A little note from March 15">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="keepsake-paper">
+            <span class="scrap-date">March 15, 2026</span>
+            <p class="scrap-quote">“you are w me forever”</p>
+            <div class="scrap-sign"><span>a favorite little thing</span><span>♡</span></div>
+          </div>
+          <span class="scrap-heart" aria-hidden="true">♡</span>
+        </aside>
+      </section>
+
+      <div class="rule"></div>
+
+      <section class="collection" aria-labelledby="collection-title">
+        <div class="collection-heading">
+          <div>
+            <h2 id="collection-title">Our words, kept safe</h2>
+            <p>Every little message, just as it was shared.</p>
+          </div>
+          <span class="count" id="count" aria-live="polite"></span>
+        </div>
+
+        <div class="controls">
+          <label class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input class="search" id="search" type="search" placeholder="Find a word, a feeling, a favorite…" autocomplete="off" aria-label="Search messages">
+          </label>
+          <div class="filters" role="group" aria-label="Filter by speaker">
+            <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-filter="Her" aria-pressed="false">Her</button>
+            <button class="filter" type="button" data-filter="You" aria-pressed="false">You</button>
+          </div>
+        </div>
+
+        <div class="timeline" id="timeline" aria-live="polite"></div>
+        <p class="empty-state" id="empty-state">No little things found. Try another word?</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Kept close, exactly as they were.</span>
+      <span>you + me, always ♡</span>
+    </footer>
+  </div>
+
+  <script>
+    const moments = [
+      { date: "March 15, 2026", messages: [
+        { speaker: "Her", text: "I'M YOUR ONLY SOULMATE" },
+        { speaker: "You", text: "you are w me forever" }
+      ]},
+      { date: "March 15, 2026", messages: [
+        { speaker: "You", text: "How much you feel loved" },
+        { speaker: "Her", text: "Ohhhhhh this?????? I feel really loved So you love me Sweet talk me Ask me questions Note stuffs Wrote a poem for me Took a selfie(which you hate) cuz I wanted that Shifted here so we have less time gap Much more calmer and everything....you didn't talk rude to me except that day...that was the only day and I didn't cry ever after You make time out for me even on days where it's hard You think of us You planned your future adjusting me in it 95/100....5 marks less cuz you are not with me rn🤍Pengu 🐧" }
+      ]},
+      { date: "March 17, 2026", messages: [
+        { speaker: "Her", text: "Find it? When did ya wrote it lmao" },
+        { speaker: "You", text: "first time i thought about it a million times how it would feel practiced nothing imagined everything then it happened and ray nothing prepared me i pulled her close finally after all that distance all those screens all those \"i miss you's\" she was just — there and i tilted her face up slow looked at her eyes one more time because i always look at her eyes first you know that then i kissed her and bro my brain js sat down like it had been standing its whole life waiting for exactly this and finally finally it could rest she tasted like everything i imagined and nothing i could describe sweet doesnt cover it soft doesnt cover it mine that covers it i didnt want to stop but i also just wanted to stay there forehead to hers eyes closed not moving just existing in that one second where everything made sense all the distance all the waiting all the plans all the years it was all just the long way to get to this her lips my lips and my brain finally sitting down worth it all of it worth it" }
+      ]},
+      { date: "March 18, 2026", messages: [
+        { speaker: "Her", text: "I AMMMMM I'M YOUR SOULMATEEEE" },
+        { speaker: "You", text: "IDK ABOUT THAT I MISSS YOUUU SOOO SOOOOO MUCHHHHH" }
+      ]},
+      { date: "March 20, 2026", messages: [
+        { speaker: "Her", text: "YYEYEYEYEYEYRYEYRYR ME NEITHER BUT I DID AND I LOVE YOU" },
+        { speaker: "You", text: "when you text first every single time like you cant help it like i am the first thing on ur mind when you explain urself to me even when u dont have to like u want me to understand u completely when u get clingy and just want me close when u answer my dumb questions seriously and never make me feel stupid for asking when u notice my moods without me saying anything when u fight for me even when im being difficult when u say my name in that way u know which way and honestly just the fact that u chose me every single day without hesitation that's it that's the whole thing u choosing me makes me feel loved more than anything else" }
+      ]},
+      { date: "March 22, 2026", messages: [
+        { speaker: "You", text: "sissy will you meet me ?" },
+        { speaker: "Her", text: "Mhmm I can't promise to meet you right now but we will meet sooooonnnnn" }
+      ]},
+      { date: "March 22, 2026", messages: [
+        { speaker: "Her", text: "Do it" },
+        { speaker: "You", text: "okay so i've been thinking about this, about us, about a day i want us to have someday, and i need to tell u because it's been living in my head rent free picture this we're at the mall, no real plan, js us and the whole day ahead, and we find the arcade almost by accident, walk past it and u pull me in by the hand without asking and i follow u like i always do without question the place is loud and colorful and smells like nostalgia, old carpet and cheap prizes, and u are already scanning every machine with this focused look on ur face that i find unreasonably cute we settle on the racing game first, side by side, shoulders touching, and i tell u right there -- one win is one kiss, straight up, no negotiating and u agree too fast which tells me ur confident, which makes me want to win more i win the first one and i don't even celebrate the game, i js turn to u and wait, and u roll ur eyes like ur annoyed but ur already leaning in, and u kiss me quick and soft and pull back smiling with ur lips pressed together trying not to show it so i win again and again and okay u win one too and u collect ur kiss like ur cashing a check, both hands on my face, very serious about it, and i let u have that completely we go through every machine in that arcade, air hockey where u cheat a little and i let u, basketball hoops where u can't reach properly and i stand behind u guiding ur arm and use it as an excuse to stay close, that claw machine where we waste way too many coins and win nothing and somehow that's the most fun we have every win, a kiss and ngl i start losing on purpose sometimes js to see what u do with it, js to feel ur lips again sooner then we find the photo booth tucked in the corner, that old curtained one, and u grab my hand and drag me in before i can say anything and it's small in there, properly small, ur basically in my lap trying to fit us both in frame first shot we're both laughing because we weren't ready, eyes crinkled, mouths open, completely unposed and i know already that's gonna be my favorite one second shot we do a silly face, ur idea, and u look ridiculous and beautiful at the same time which should be impossible third shot u cup my face in ur hands and kiss me properly, slow, and i forget there's a camera for a second, forget there's anything outside that curtain, js ur lips and ur hands warm on my jaw the strip comes out and u snatch it before i can even see it, study it with this private little smile, and then u show me and the last frame is us, eyes closed, completely in it, and it looks like something out of a movie except it's real, it's us u keep it, obviously we find the cafe after that, one of those quiet ones tucked away from the main crowd, no customers, js soft music and the smell of coffee and afternoon light coming in slow through the window we order and sit across from each other, hands wrapped around warm cups, and u start talking and this is the part i think about the most u're telling me something, some story, something that happened, ur hands moving while u talk, ur expressions changing, ur eyes going wide at the good part, and i am js looking at u not in a distracted way, not like i'm not listening, i'm hearing every word, but i'm also js taking u in the way ur face moves when ur excited about something, the way u pause to think and ur eyes go somewhere else for a second, the way u laugh at ur own story before u finish it and i think, sitting there with my coffee going slightly cold because i keep forgetting to drink it, i think -- i am so lucky that i get to know this face that i get to sit across from it and watch it be alive and expressive and completely itself that's mine u are mine and i am urs and we are sitting in a quiet cafe with no one else around and u are yappin and i am js grateful so quietly, so completely grateful we stay until the light outside changes, until the cups are empty and the cafe is closing up around us gently, and then we walk out slow, no rush, ur hand in mine through the mall and then through the parking lot and then the whole drive home i drop u at ur door and we stand there for a second doing that thing where neither of us moves first, neither of us wants to be the one to end it i kiss u one more time at the door, soft, unhurried, like i'm not in a rush even though i know what comes after this is just me driving home without u u go in and i sit in the car for a second before starting it the photo strip is on my mind, that last frame, ur hands on my face, both of us completely gone into it and i miss u already like instantly, before i've even left the street that kind of missing that starts before the person is even fully gone, that tells u something about how much they mean to u without u having to think about it yea that's the day i want w u js that, js all of that think about it" }
+      ]},
+      { date: "March 22, 2026", messages: [
+        { speaker: "Her", text: "YEYYYYYYYYYYY You haven't seen it yet?? No problem we'll watch all the seasons together when we meet (edited)" },
+        { speaker: "You", text: "you are so dumb sissy" }
+      ]},
+      { date: "March 25, 2026", messages: [
+        { speaker: "You", text: "What if we meet and I am super shy... Unable to meet eyes, not being able to hold hands.." },
+        { speaker: "Her", text: "AWWW...I'll keep my nervousness aside. Take your hands into me, bend down to your eye level to look at your pretty eyes, kiss your hands. Slowly(so you aren't taken by surprise), I'll melt the ice between us. I'll show you lots of affection, I'll whisper cute lovable things to you, you'll feel less shy by each passing moment and the ice will break...it'll take time to break tho whahahahahah🤍Pengu 🐧" }
+      ]},
+      { date: "March 26, 2026", messages: [
+        { speaker: "Her", text: "I used to sleep thinking i was in your arms tucked to my fucking pillow" },
+        { speaker: "You", text: "That is so cute" }
+      ]},
+      { date: "March 29, 2026", messages: [
+        { speaker: "You", text: "I wanna merge" },
+        { speaker: "Her", text: "It's kinda funny but yk after dat shitty relationship...I promised myself that I'll never ever say someone...anyone that I love them more cuz I don't wanna love anyone more and then you came. I jus wanna love you like I dunno I can't even say how much but it's a lot of love ummmmaaaaahhhhh. I jus always wanna love you more. You did this. You deserveeeee every bit of love i give you" }
+      ]},
+      { date: "March 29, 2026", messages: [
+        { speaker: "Her", text: "So whaaaa...I know you actually love being babied by me...I love taking care of my baby like the baby you are for me" },
+        { speaker: "You", text: "Mhmm I don't like how lovely you are... You forgive me... You are fucking understanding... You make me feel things WORST OF ALL you baby a 6\"6' guy who can kill a person js by a ear slap... (I love you sooo much, I don't wanna change any of this)" }
+      ]},
+      { date: "March 30, 2026", messages: [
+        { speaker: "Her", text: "I am yourrrrr WIFEEEEEEEIEIEIEIEIE" },
+        { speaker: "You", text: "What?? You are my wife You belong to me Ik what's in your mind" }
+      ]},
+      { date: "March 30, 2026", messages: [
+        { speaker: "Her", text: "I am your best half" },
+        { speaker: "You", text: "YOU ARE MY SOULMATE MY BETTER HALF MY WIFE" }
+      ]},
+      { date: "March 30, 2026", messages: [
+        { speaker: "Her", text: "And soulmate too" },
+        { speaker: "You", text: "HELL YEAAA I NEVER FELT THIS KIND OF THING W SOMEONE ELSE IT WAS SOOO FUCKING NEW TO ME SYNCED- ONCE? NAHHH TWICE?? NAHHH THRICE??? NAHHHH MULTIPLE TIMES" }
+      ]},
+      { date: "March 30, 2026", messages: [
+        { speaker: "Her", text: "Hihuuuuuuuu It'll be so cool when we meet and when we discover and learn how both of us speak and it happens irl" },
+        { speaker: "You", text: "THATS SOOO REALLL" }
+      ]},
+      { date: "March 31, 2026", messages: [
+        { speaker: "Her", text: "Talking to you" },
+        { speaker: "You", text: "you are my love my wife, my soulmate 🫂" }
+      ]},
+      { date: "March 31, 2026", messages: [
+        { speaker: "Her", text: "You have to say to know what I'll think of you" },
+        { speaker: "You", text: "👉👈 yk i am thinking i am in really deep love with you... you are sooo cute. will you be my wife in near future ?" }
+      ]},
+      { date: "April 1, 2026", messages: [
+        { speaker: "You", text: "you were like-" },
+        { speaker: "Her", text: "Lol let's say we aren't together and even if my crush comes up to me...any of them...and propose...I'll 100% say no lmao" }
+      ]},
+      { date: "April 2, 2026", messages: [
+        { speaker: "Her", text: "I love you mosttttttttttttttt I'm your SOULMATEEEEEEE" },
+        { speaker: "You", text: "YDK HOW MUCH THIS SINGLE TEXT MADE ME HAPPYYY" }
+      ]},
+      { date: "April 2, 2026", messages: [
+        { speaker: "You", text: "Tumm hooo Mene tumhe used to kr rakha hai But tum itna nhi bolti mereko so mereko adat nhi hai" },
+        { speaker: "Her", text: "You'll marry me!!! She said your wife will be lucky Only I wanna be lucky in this entire freaking world" }
+      ]},
+      { date: "April 2, 2026", messages: [
+        { speaker: "You", text: "You deserve to be happy" },
+        { speaker: "Her", text: "If you are raging And i backhug you and place my palm on your heart and rub it gently and whisper...calm down baby Will it help?????" }
+      ]},
+      { date: "April 3, 2026", messages: [
+        { speaker: "Her", text: "Idk I was just feeling disgusted by myself. Huffff It's my fault...umm idk...I'm not meeting my expectations...I'm disappointing myself. Or else...I'm jus complaining that I have myself or I am feeling disgusted like now. I feel so stuck...i feel like I'm in a loop All i do is study and talk to you and sleep and study and talk to you and sleep and literally nothing else. I was doing so good last year but i didn't like what I was doing...I hate what I'm studying and idk...I jus lost the appetite to become better and good slowly day by day...I have huge expectations from myself but i am jus standing at the same place every day Idk hufffffffffffffffffff You get me the most ...ig this is enough to tell you what i mean" },
+        { speaker: "You", text: "Babyyy you are not doing anything wrong js a lil change may help" }
+      ]},
+      { date: "April 3, 2026", messages: [
+        { speaker: "Her", text: "I used to love myself so much and idk...i am hating myself so bad. All I'm doing all day is idkk hating everything about myself. I feel so insecure. I feel so heavy on my chest ....hufffff I'm failing so bad at everything I'm much mentally weaker than what i was...I was fucking strong at my stupid head I wanna love myself again...huff" },
+        { speaker: "You", text: "You are the best..baby You are doing good in my sight I love you baby You are not in a loop or mentally weak You are emotionally soo intelligent by your age and that impress me soo much You are mature and responsible too as you are the eldest You'll love yourself again baby Give yourself some time I am telling you again you are really strong lady. Nothing Abt you is weak." }
+      ]},
+      { date: "April 3, 2026", messages: [
+        { speaker: "You", text: "You are the best..baby You are doing good in my sight I love you baby You are not in a loop or mentally weak You are emotionally soo intelligent by your age and that impress me soo much You are mature and responsible too as you are the eldest You'll love yourself again baby Give yourself some time I am telling you again you are really strong lady. Nothing Abt you is weak." },
+        { speaker: "Her", text: "Idk what I wanna do at all I never thought tbh hufffff now dat I look back...i was just so much into creative stuffs as a kid...I wanted to be something I used to see. Dat was why i was thinking of dat But tbh...I never even sat once with myself and thought what I wanna do and should do and have to do" }
+      ]},
+      { date: "April 3, 2026", messages: [
+        { speaker: "Her", text: "I love you I'm failing at everything except love but i don't wanna fail yk...I wanna be proud of myself and I wanna love myself. I don't wanna be ever insecure with what I'm" },
+        { speaker: "You", text: "Mhmmm i can understand You are fit to be an influencer.... You are creative... You can do so many things" }
+      ]},
+      { date: "April 3, 2026", messages: [
+        { speaker: "Her", text: "Iam your wifey" },
+        { speaker: "You", text: "Yes you are my wifey 🐢 I'll support you always" }
+      ]},
+      { date: "April 4, 2026", messages: [
+        { speaker: "Her", text: "You are my soulmate...you'll know when I'm comfortable and when you are comfortable It won't be hard for you" },
+        { speaker: "You", text: "I am your man I am treating you the way you treating me" }
+      ]},
+      { date: "April 5, 2026", messages: [
+        { speaker: "You", text: "you are born to be my wife, i wanna marry uh and live uh ssooooo baddd" },
+        { speaker: "Her", text: "I know baby...I know exactly what you mean. You can not bore me...I can be bored of talking about the same things as how I wanna kiss you but I can't and all and all but I won't be bored of you. You understand the difference. You are so precious to me" }
+      ]},
+      { date: "September 20, 2026", messages: [
+        { speaker: "Her", text: "And it was the first time I felt the need to have someone and to have you" },
+        { speaker: "You", text: "MWUHHHHHHHHHHHHHHHHHHHhhhhhhhhhhhhhhhh meri soulmate" }
+      ]},
+      { date: "September 20, 2026", messages: [
+        { speaker: "Her", text: "What if I am your soulmate but god jus wants to make it hard for us??" },
+        { speaker: "You", text: "If i loved love someone that would mean you aren't my soulmate, buz if you were we both had feelings for eachother So if you aren't my soulmate nothing would bother you If you are I would be w you buz love happens once and only to soulmate" }
+      ]},
+      { date: "September 20, 2026", messages: [
+        { speaker: "Her", text: "If u were in a relationship with a girl and u always wanted to marry her and everything was good and she loved u a lot a lot and u always said that u love her. Would u hurt her by leaving her for me???" },
+        { speaker: "You", text: "Nope I don't run to marriage Idk how i decided to make you my wife so quickly You felt comfy and trustworthy" }
+      ]},
+      { date: "September 22, 2026", messages: [
+        { speaker: "Her", text: "Tab toh tumhe pata bhi nhi tha that I'm not religious" },
+        { speaker: "You", text: "You gave me life, you are home, you are comfortable, most importantly you are my soulmate" }
+      ]},
+      { date: "September 22, 2026", messages: [
+        { speaker: "Her", text: "I can't leave you 😕 I love you and I wanna live with you I def don't wanna marry u wrong or hide our relationship Everything shucks" },
+        { speaker: "You", text: "We'll marry" }
+      ]},
+      { date: "September 26, 2026", messages: [
+        { speaker: "You", text: "If there is something that I don't like, but you love it the most. And i am telling you to do it even knowing that will emotionally hurt me but I wanna support your choice and I'll also be sad if you don't do it and blame myself What you gonna do" },
+        { speaker: "Her", text: "I won't do itttt and I'll spend time with u and cuddle with you and we will love till u really get it in your mind dat I'm ur wifeyyy and ur opinion matters to me da mosttt and I'm going to be happy even without doing itttt cuz it's for youuu nd our relationship and i have no regretsssss and u would hve done the same if things were opposite so don't feel sad and bake yourselffff" }
+      ]},
+      { date: "September 26, 2026", messages: [
+        { speaker: "You", text: "If i have a garden after marriage, it's full of flowers Do you want me to not break it and take care of it or break it and give it to you as love gesture" },
+        { speaker: "Her", text: "Not break it and take care of itttt" }
+      ]},
+      { date: "September 27, 2026", messages: [
+        { speaker: "Her", text: "Why do u like me Like there are hundreds of girls who had hit on u or confessed to u Am i better than everyone?" },
+        { speaker: "You", text: "You are mine" }
+      ]},
+      { date: "September 29, 2026", messages: [
+        { speaker: "You", text: "Im not mad at you" },
+        { speaker: "Her", text: "I felt sad that u were feeling bad for something like dat I'm your baby U shouldn't feel like dat at all with me I'm your soulmate right??? I will wait And then u went cold Don't feel bad bubu" }
+      ]},
+      { date: "September 30, 2026", messages: [
+        { speaker: "Her", text: "Why am I acting like dis" },
+        { speaker: "You", text: "I don't feel good jab tum merepe gussa hoti ho, when you don't get to share your anger on me i feel low and my mind don't work and i forget how to love you over text and i just want to hug you and stay quite and kiss you softly But i couldn't... It not your fault it's the distance" }
+      ]},
+      { date: "September 30, 2026", messages: [
+        { speaker: "Her", text: "I can't wait to marry youuu" },
+        { speaker: "You", text: "Tab Mera mood nhi tha kisi se baat krne ka But i was still Missing you so much So i decide to do that" }
+      ]},
+      { date: "October 2, 2026", messages: [
+        { speaker: "Her", text: "U r really my soulmate, I love you sooo much and I can't describe it jus by words. I always wanna make you happy and never ever wanna hurt you and always stand by youuuuuuu through everything and I always wanna understand you and also get mad at u even when I understand you and I wanna throw tantrums alwaysssss.ummmmmmaaahhhhh u r my everything and I love you bubuuuuuu. You are my soulmate ummmmmmmmmmmmmmmaaaaaaaaaassssshhhhhhhhhhhhh I'm forever yours" },
+        { speaker: "You", text: "I WANNA LOVE YOU SOOO MUCHHHHHHHHHHHHHHHH" }
+      ]},
+      { date: "October 4, 2026", messages: [
+        { speaker: "You", text: "YOU ARE MY SOULMATE AND THATS A THING I WONT DOUBT" },
+        { speaker: "Her", text: "I jus wanna be your wife and always be with you forever" }
+      ]},
+      { date: "October 4, 2026", messages: [
+        { speaker: "You", text: "you are my person" },
+        { speaker: "Her", text: "We will have much much much more upsssss We will be happy We will go through hard things together too and that's enough...it would feel easier together" }
+      ]},
+      { date: "October 4, 2026", messages: [
+        { speaker: "You", text: "What will happen when we meet" },
+        { speaker: "Her", text: "Ummmmmmmmmmmaaaahhhhhhhh We made it like this Our love did" }
+      ]},
+      { date: "October 6, 2026", messages: [
+        { speaker: "You", text: "Don't meet me everyday" },
+        { speaker: "Her", text: "I'll kiss you on our first date I'll love you I wish we could jus love each other on our first date to show how much we missed each other" }
+      ]},
+      { date: "October 9, 2026", messages: [
+        { speaker: "You", text: "I wished that we find a safe place to live together and a chance atleast to have a live-in before marriage Our kids should always be in god's protection and safe from every type of danger and your and my bond never weakens" },
+        { speaker: "Her", text: "That's beautiful UMMMMMMMMMMMAAAAHHHHHHHH UMMMMMAAAAAAAAHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH YEYEYEYEYEYEYEYE UMMMMMMMMMMMAAAAHHHHHHHH UMMMMMAAAAAAAAHHHHHH UMMMMMMMMMMMMMMMAAAAAHHHHHHHHH" }
+      ]},
+      { date: "October 11, 2026", messages: [
+        { speaker: "Her", text: "And you tell meee toooo" },
+        { speaker: "You", text: "I wanna come home from work and kiss you and hug you in your silk night suit and sit with you where my peace exists" }
+      ]},
+      { date: "October 11, 2026", messages: [
+        { speaker: "You", text: "How will we start first communication when we meetttt" },
+        { speaker: "Her", text: "We willl We'll hug each other and stay like datt every night after u comeeeeee and we will jus hug and stay silent for 10-15 mins nd then we would do some kissyyyy" }
+      ]},
+      { date: "October 11, 2026", messages: [
+        { speaker: "You", text: "I'll follow you till you reach inside your room" },
+        { speaker: "Her", text: "Awwwwwwwww ummmmmmmmmmmaaaahhhhhhhh ummmmmmmmmmmmmmmaaaaahhhhhhhhh ummmmmmmmmmmmmmmaaaaahhhhhhhhh I'm your soulmate" }
+      ]},
+      { date: "October 11, 2026", messages: [
+        { speaker: "You", text: "I'll follow you till you reach inside your room" },
+        { speaker: "Her", text: "Awwwwwwwww ummmmmmmmmmmaaaahhhhhhhh ummmmmmmmmmmmmmmaaaaahhhhhhhhh ummmmmmmmmmmmmmmaaaaahhhhhhhhh I'm your soulmate" }
+      ]}
+    ];
+
+    const timeline = document.getElementById("timeline");
+    const search = document.getElementById("search");
+    const count = document.getElementById("count");
+    const emptyState = document.getElementById("empty-state");
+    const filters = Array.from(document.querySelectorAll(".filter"));
+    let activeFilter = "all";
+
+    function render() {
+      const query = search.value.trim().toLocaleLowerCase();
+      const matching = moments.map((moment, index) => ({
+        ...moment,
+        number: index + 1,
+        messages: moment.messages.filter(message => {
+          const matchesSpeaker = activeFilter === "all" || message.speaker === activeFilter;
+          const matchesSearch = !query || message.text.toLocaleLowerCase().includes(query);
+          return matchesSpeaker && matchesSearch;
+        })
+      })).filter(moment => moment.messages.length);
+
+      const groups = new Map();
+      matching.forEach(moment => {
+        if (!groups.has(moment.date)) groups.set(moment.date, []);
+        groups.get(moment.date).push(moment);
+      });
+
+      timeline.replaceChildren();
+      groups.forEach((items, date) => {
+        const group = document.createElement("section");
+        group.className = "day-group";
+
+        const heading = document.createElement("h3");
+        heading.className = "day-heading";
+        const dateLabel = document.createElement("span");
+        dateLabel.className = "day-date";
+        dateLabel.textContent = date;
+        const dayLabel = document.createElement("span");
+        dayLabel.className = "day-label";
+        dayLabel.textContent = "a day worth keeping";
+        heading.append(dateLabel, dayLabel);
+
+        const list = document.createElement("div");
+        list.className = "moments";
+        items.forEach(moment => {
+          const card = document.createElement("article");
+          card.className = "moment";
+          moment.messages.forEach(message => {
+            const block = document.createElement("div");
+            block.className = "message-block";
+
+            const meta = document.createElement("div");
+            meta.className = "moment-top";
+            const speaker = document.createElement("span");
+            speaker.className = "speaker" + (message.speaker === "You" ? " you" : "");
+            const dot = document.createElement("span");
+            dot.className = "speaker-dot";
+            dot.setAttribute("aria-hidden", "true");
+            speaker.append(dot, document.createTextNode(message.speaker));
+            const number = document.createElement("span");
+            number.className = "moment-number";
+            number.textContent = String(moment.number).padStart(2, "0");
+            meta.append(speaker, number);
+
+            const text = document.createElement("p");
+            text.className = "message";
+            text.textContent = message.text;
+            block.append(meta, text);
+            card.append(block);
+          });
+          list.append(card);
+        });
+
+        group.append(heading, list);
+        timeline.append(group);
+      });
+
+      const visibleMessages = matching.reduce((total, moment) => total + moment.messages.length, 0);
+      count.textContent = visibleMessages + (visibleMessages === 1 ? " message" : " messages");
+      emptyState.classList.toggle("visible", matching.length === 0);
+    }
+
+    search.addEventListener("input", render);
+    filters.forEach(button => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        filters.forEach(filter => filter.setAttribute("aria-pressed", String(filter === button)));
+        render();
+      });
+    });
+
+    render();
+  </script>
+</body>
+</html>
